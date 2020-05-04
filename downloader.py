@@ -3,7 +3,6 @@ import os
 from selenium import webdriver
 from github import Github
 import secrets
-import pandas
 
 URL = 'https://www.apple.com/covid19/mobility'
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) '

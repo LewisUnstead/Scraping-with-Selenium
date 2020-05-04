@@ -2,3 +2,4 @@
 *.csv
 /.idea
 secrets.py
+/__pycache__
