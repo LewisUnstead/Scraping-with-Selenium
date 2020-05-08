@@ -1,5 +1,4 @@
 import requests
-import os
 from selenium import webdriver
 from github import Github
 import secrets
@@ -27,7 +26,7 @@ def scrape_website():
     options = Options()
     options.headless = True
     # start the Chrome webdriver
-    wd = webdriver.Chrome(options=options)
+    wd = webdriver.Chrome('/usr/local/bin/chromedriver', options=options)
     # Navigate to the URL
     wd.get(URL)
     # Find all elements by a tag to get the href we want
