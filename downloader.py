@@ -1,7 +1,7 @@
-import requests
 from selenium import webdriver
 from github import Github
 import secrets
+import pandas
 import time
 from selenium.webdriver.chrome.options import Options
 
@@ -14,10 +14,16 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleW
 
 # function to download the csv from the link in the webpage
 def download_csv(download_link):
-    # get csv file from download_link provided
-    csv_file = requests.get(download_link, headers=headers)
-    # return the content of the csv file to upload to github
-    return csv_file.content
+    # Read csv into pandas as we need to manipulate before we commit it
+    data = pandas.read_csv(download_link)
+    # Drop columns not needed
+    data = data.drop(['alternative_name', 'sub-region'], axis=1)
+    # Get all countries and only the United Kingdom sub regions
+    data = data[(data['geo_type'] == 'country/region') | (data['country'] == 'United Kingdom')]
+    # Drop the rest of the unnecessary columns
+    data = data.drop(['geo_type', 'country'], axis=1)
+    # Return completed dataframe
+    return data.to_csv(index=False)
 
 
 # function to scrape the website and identify the csv link
